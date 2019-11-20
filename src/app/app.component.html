@@ -1,0 +1,17 @@
+<button (click)="getPeople()">Fetch</button>
+<div *ngIf="fetchState$ | async as fetchState">
+  {{ fetchState.value | json }}
+  <div *ngIf="fetchState.matches('loading')">
+    Loading...
+  </div>
+  <div *ngIf="fetchState.matches('failure')">
+    {{ fetchState.context.message }}
+  </div>
+  <div *ngIf="fetchState.matches('success')">
+    <ul>
+      <li *ngFor="let person of fetchState.context.results">
+        {{ person.name }}
+      </li>
+    </ul>
+  </div>
+</div>
